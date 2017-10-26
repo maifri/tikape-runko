@@ -1,3 +1,4 @@
+
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
@@ -7,10 +8,14 @@
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>Smoothielista</h1>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        <ol>
+        <li th:each=": ${annokset}">
+                <span th:text="${annos.nimi}">annoksen nimi</span> <a th:href="${'/annokset/' + annos.id}">linkki</a>
+        </li>
+        </ol>
+        
+        <p><a href="/raakaaineet">Tarkastele ja lisää aineksia</a></p>
     </body>
 </html>

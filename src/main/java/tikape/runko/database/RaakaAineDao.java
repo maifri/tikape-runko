@@ -82,6 +82,34 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
         stmt.close();
         conn.close();
     }
+    
+    public RaakaAine save(RaakaAine raakaAine) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO RaakaAine"
+                + " (id, nimi)"
+                + " VALUES (?, ?)");
+        stmt.setString(2, raakaAine.getNimi());
+
+        stmt.executeUpdate();
+        stmt.close();
+
+        stmt = conn.prepareStatement("SELECT * FROM Asiakas"
+                + " WHERE nimi = ? ");
+        stmt.setString(2, raakaAine.getNimi());
+
+        ResultSet rs = stmt.executeQuery();
+        rs.next(); // vain 1 tulos
+
+        RaakaAine a = new RaakaAine(rs.getInt("id"), rs.getString("nimi"));
+
+        stmt.close();
+        rs.close();
+
+        conn.close();
+
+        return a;
+    }
 
 }
 
